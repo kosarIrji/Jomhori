@@ -1,0 +1,21 @@
+:root {
+    --color-light-green: #e9efec;
+    --color-dark-slate: #;
+    --color-off-white: #f0e9e6;
+    --color-medium-gray: #9095a1;
+    --color-slate-gray: #6b5d62;
+    --color-dark-green: #16423c;
+  
+    --my-primary: #272e36;
+    --my-secondary: #f0e9e6;
+    --my-accent: #9095a1;
+  }
+  .bg-primary {
+    background-color: var(--my-primary);
+  }
+  .text-secondary {
+    color: var(--my-secondary);
+  }
+  html.rtl {
+    direction: rtl;
+  }
