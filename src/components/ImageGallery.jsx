@@ -26,9 +26,9 @@ export default function ImageGallery() {
     setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
   return (
-    <section className="relative my-7 bg-white rounded-3xl shadow-lg px-6 py-12 border border-gray-200">
+    <section className="relative my-7 bg-[#FFF6EB] rounded-3xl shadow-lg px-6 py-12 border border-gray-200">
       <div className="flex justify-center">
-        <h2 className="absolute  sm:text-2xl md:text-lg font-extrabold text-[#4F7C6B] text-3xl font-bold text-center ">
+        <h2 className="absolute  sm:text-2xl md:text-lg font-extrabold text-[#8F5100] text-3xl font-bold text-center ">
           گالری تصاویر
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-4 gap-8 mt-20">
@@ -64,13 +64,13 @@ export default function ImageGallery() {
           >
             <button
               onClick={handleClose}
-              className="absolute top-4  text-white bg-black bg-opacity-50 p-2 rounded-full md:right-60"
+              className="absolute top-4  text-[#FFF6EB] bg-black bg-opacity-50 p-2 rounded-full md:right-60"
             >
               <X size={24} />
             </button>
             <button
               onClick={showPrev}
-              className="absolute left-4 text-white bg-black bg-opacity-50 p-2 rounded-full"
+              className="absolute left-4 text-[#FFF6EB] bg-black bg-opacity-50 p-2 rounded-full"
             >
               <ChevronLeft size={32} />
             </button>
@@ -86,7 +86,7 @@ export default function ImageGallery() {
             />
             <button
               onClick={showNext}
-              className="absolute md:right-60 text-white bg-black bg-opacity-50 p-2 rounded-full right-4"
+              className="absolute md:right-60 text-[#FFF6EB] bg-black bg-opacity-50 p-2 rounded-full right-4"
             >
               <ChevronRight size={32} />
             </button>

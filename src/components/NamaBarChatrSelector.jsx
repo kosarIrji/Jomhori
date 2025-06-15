@@ -16,7 +16,6 @@ import {
   Legend,
 } from "recharts";
 
-
 const COLORS = [
   "#FF7073",
   "#EA9E8D",
@@ -27,9 +26,9 @@ const COLORS = [
   "#73D3C9",
 ];
 
-export default function NamaChart() {
+export default function NamaChart({chartType}) {
   const [data, setData] = useState([]);
-  const [chartType, setChartType] = useState("bar");
+ 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,7 +47,7 @@ export default function NamaChart() {
 
         const chartData = jsonData
           .map((row) => ({
-            name: row["نما"] || "نامشخص",
+            name: row["نوع"] || "نامشخص",
             تعداد: Number(row["تعداد"]) || 0,
           }))
           .filter((item) => !isNaN(item.تعداد));
@@ -75,7 +74,7 @@ export default function NamaChart() {
         return (
           <BarChart
             data={data}
-            margin={{ top: 20, right: 40, left: 20, bottom: 70 }}
+            margin={{ top: 20, bottom: 100 ,left:20}}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -85,7 +84,7 @@ export default function NamaChart() {
               interval={0}
               height={60}
             />
-            <YAxis width={10}  tick={{ textAnchor: "satrt", fontSize: 13 }}/>
+            <YAxis width={10} tick={{ textAnchor: "satrt", fontSize: 13 }} />
             <Tooltip formatter={(value) => [`${value} عدد`, "تعداد"]} />
             <Legend layout="horizontal" verticalAlign="bottom" />
             <Bar
@@ -107,8 +106,7 @@ export default function NamaChart() {
         return (
           <LineChart
             data={data}
-            margin={{ top: 20, right: 40, left: 20, bottom: 40 }}
-          >
+         margin={{ top: 20, bottom: 100 ,left:20}}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
@@ -117,7 +115,7 @@ export default function NamaChart() {
               interval={0}
               height={80}
             />
-            <YAxis width={10}  tick={{ textAnchor: "satrt", fontSize: 13 }}/>
+            <YAxis width={10} tick={{ textAnchor: "satrt", fontSize: 13 }} />
             <Tooltip formatter={(value) => [`${value} عدد`, "تعداد"]} />
             <Legend layout="horizontal" verticalAlign="bottom" />
             <Line
@@ -162,18 +160,10 @@ export default function NamaChart() {
   };
 
   return (
-    <div className="chart-container w-full max-w-[1200px]">
+    <div className="chart-container w-full ">
       <div className="chart-header ">
-        <select
-          value={chartType}
-          onChange={(e) => setChartType(e.target.value)}
-          className="chart-type-select"
-        >
-          <option value="bar">نمودار میله‌ای</option>
-          <option value="line">نمودار خطی</option>
-          <option value="pie">نمودار دایره‌ای</option>
-        </select>
-        <h2 className="chart-title text-[#3A7CA5]">نمودار توزیع نماها</h2>
+       
+        <h2 className="chart-title">نمودار توزیع نماها</h2>
       </div>
 
       {loading ? (
@@ -185,7 +175,64 @@ export default function NamaChart() {
           </ResponsiveContainer>
         </div>
       )}
-   
+      <style jsx>{`
+        .chart-container {
+          font-family: "Modam", Tahoma, sans-serif;
+          direction: rtl;
+          background-color: [#FFF6EB];
+        }
+
+        .chart-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 15px;
+          
+        }
+
+        .chart-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #8F5100;
+          margin-right: 1rem;
+        }
+
+        .chart-type-select {
+          padding: 8px;
+          border-radius: 8px;
+          border: 1px solid [#FFF6EB];
+          background-color: #a6c9c0;
+          font-family: "Modam";
+          font-size: 14px;
+          color: #2f3e3b;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          min-width: 140px;
+        }
+
+        .chart-type-select:hover {
+          border-color: #a6c9c0;
+          box-shadow: 0 0 0 1px #2f3e3b;
+        }
+
+        .chart-type-select:focus {
+          outline: none;
+          border-color: #2f3e3b;
+          box-shadow: 0 0 0 2px rgba(78, 121, 167, 0.3);
+        }
+
+        .loading-message,
+        .no-data-message {
+          text-align: center;
+          padding: 40px;
+          color: #666;
+          font-size: 16px;
+        }
+
+        .chart-wrapper {
+          width: 100%;
+        }
+      `}</style>
     </div>
   );
 }

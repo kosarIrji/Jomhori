@@ -3,23 +3,23 @@ import { motion } from "framer-motion";
 
 function History() {
   return (
-    <section className="my-7 bg-white rounded-2xl shadow-md p-8 border border-gray-100">
-      <h3 className="sm:text-xlg  w-full   text-3xl  font-modam font-extrabold text-center  sm:text-3xl md:text-lg text-[#4F7C6B] mb-4 leading-snug ">
-        تاریخچه محله بسیج
+    <section className="my-7 bg-[#FFF6EB] rounded-2xl shadow-md p-8 border border-gray-100">
+      <h3 className="sm:text-xlg  w-full   text-3xl  font-modam font-extrabold text-center  sm:text-3xl md:text-lg text-[#8F5100] mb-4 leading-snug ">
+        تاریخچه محله بلوار
       </h3>
 
       <p className="md:leading-loose font-modam text-gray-800 text-justify text-sm sm:text-xs md:text-base  mb-10">
-        محله بسیج، معروف به میرزا رضای کرمانی، در دهه ۷۰ شمسی با هدف اسکان
-        نیروهای نظامی و کارکنان دولت شکل گرفت و با رشد تدریجی و موقعیت مناسب، به
-        یکی از محلات با ارزش بجنورد تبدیل شده است. طی سال‌های اخیر، روند نوسازی
-        تدریجی و ساخت‌وساز متراکم، همراه با افزایش تقاضای سکونت، موجب رشد مستمر
-        ارزش اقتصادی آن شده است .
+        محله‌ی بلوار به دلیل مجاورت با بلوار معلم ، به این نام شناخته می شود، که
+        در دهه 60 شکل گرفته و توسعه جدی آن از دهه ۱۳۸۰، با افزایش ساخت و ساز های
+        مسکونی و خدماتی اغاز شده است. با مقایسه تصاویر سال 2005 و 2025  
+        میتوان گفت، در این محله تحولات کالبدی محسوسی دیده میشود که باعث افزایش
+        ارزش اقتصادی این محله شده است.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8  lg:grid-cols-2">
         {[
-          { year: "۱۳۸۵", src: "./images/1385.jpg" },
-          { year: "۱۴۰۴ ", src: "./images/1404.jpg" },
+          { year: "۱۳۸۵", src: "./images/12_2005.png" },
+          { year: "۱۴۰۴ ", src: "./images/12_2025.png" },
         ].map((item, index) => (
           <motion.div
             key={index}
@@ -30,11 +30,11 @@ function History() {
           >
             <img
               src={item.src}
-              alt={`محله بسیج در سال ${item.year}`}
+              alt={`محله بلوار در سال ${item.year}`}
               className="rounded-xl shadow-md w-full md:max-w-[600px]  object-cover"
             />
             <p className="text-center  mt-3 text-gray-500 sm:sm text-sm md:text-base leading-relaxed">
-              محله بسیج - سال {item.year}
+              محله بلوار - سال {item.year}
             </p>
           </motion.div>
         ))}

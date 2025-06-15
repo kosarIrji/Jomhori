@@ -26,15 +26,15 @@ const COLORS = [
   "#b07aa1",
 ];
 
-export default function EnhancedFloorChart() {
+export default function EnhancedFloorChart({chartType}) {
   const [data, setData] = useState([]);
-  const [chartType, setChartType] = useState("bar");
+ 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadExcel = async () => {
       try {
-        const response = await fetch("./data/TABAQAT.xlsx");
+        const response = await fetch("./data/tdad_tbqe.xlsx");
         if (!response.ok) throw new Error("خطا در دریافت فایل");
 
         const blob = await response.blob();
@@ -47,7 +47,7 @@ export default function EnhancedFloorChart() {
 
         const chartData = jsonData
           .map((row) => ({
-            name: String(row["طبقه"] ?? "نامشخص"),
+            name: String(row["نوع"] ?? "نامشخص"),
             تعداد: Number(row["تعداد"] ?? 0),
           }))
           .filter((item) => !isNaN(item.تعداد));
@@ -65,41 +65,17 @@ export default function EnhancedFloorChart() {
 
   const renderChart = () => {
     if (data.length === 0)
-      return <div className="no-data-message">داده‌ای برای نمایش وجود ندارد</div>;
+      return (
+        <div className="no-data-message">داده‌ای برای نمایش وجود ندارد</div>
+      );
 
     switch (chartType) {
       case "bar":
         return (
-          <BarChart data={data} margin={{ top: 20, right: 40, left: 20, bottom: 70 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="name"
-              angle={-45}
-              textAnchor="start"
-              interval={0}
-              height={70}
-            />
-            <YAxis />
-            <Tooltip
-              contentStyle={{ fontFamily: "Modam", direction: "rtl", textAlign: "right" }}
-              formatter={(value) => [`${value} واحد`, "تعداد"]}
-            />
-            <Legend wrapperStyle={{ direction: "rtl" }} />
-            <Bar
-              dataKey="تعداد"
-              name="تعداد واحدها"
-              barSize={25}
-              radius={[4, 4, 0, 0]}
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Bar>
-          </BarChart>
-        );
-      case "line":
-        return (
-          <LineChart data={data} margin={{ top: 20, right: 40, left: 20, bottom: 70 }}>
+          <BarChart
+            data={data}
+            margin={{ top: 20, bottom: 70 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
@@ -110,7 +86,50 @@ export default function EnhancedFloorChart() {
             />
             <YAxis />
             <Tooltip
-              contentStyle={{ fontFamily: "Modam", direction: "rtl", textAlign: "right" }}
+              contentStyle={{
+                fontFamily: "Modam",
+                direction: "ltr",
+                textAlign: "left",
+              }}
+              formatter={(value) => [`${value} واحد`, "تعداد"]}
+            />
+            <Legend wrapperStyle={{ direction: "rtl" , padding: "20px"}} />
+            <Bar
+              dataKey="تعداد"
+              name="تعداد واحدها"
+              barSize={25}
+              radius={[4, 4, 0, 0]}
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        );
+      case "line":
+        return (
+          <LineChart
+            data={data}
+            margin={{ top: 20,  bottom: 70 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="name"
+              angle={-45}
+              textAnchor="start"
+              interval={0}
+              height={60}
+            />
+            <YAxis />
+            <Tooltip
+              contentStyle={{
+                fontFamily: "Modam",
+                direction: "rtl",
+                textAlign: "right",
+              }}
               formatter={(value) => [`${value} واحد`, "تعداد"]}
             />
             <Legend wrapperStyle={{ direction: "rtl" }} />
@@ -139,7 +158,10 @@ export default function EnhancedFloorChart() {
               label
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip
@@ -163,17 +185,9 @@ export default function EnhancedFloorChart() {
   };
 
   return (
-    <div className="chart-container w-full max-w-[1200px]">
-      <div className="chart-header">
-        <select
-          value={chartType}
-          onChange={(e) => setChartType(e.target.value)}
-          className="chart-type-select"
-        >
-          <option value="bar">نمودار میله‌ای</option>
-          <option value="line">نمودار خطی</option>
-          <option value="pie">نمودار دایره‌ای</option>
-        </select>
+    <div className="chart-container w-full">
+      <div className="chart-header ">
+       
         <h2 className="chart-title">نمودار اطلاعات طبقات</h2>
       </div>
 
@@ -190,11 +204,8 @@ export default function EnhancedFloorChart() {
       <style jsx>{`
         .chart-container {
           font-family: "Modam", Tahoma, sans-serif;
-          direction: rtl;
-          padding: 20px;
-          background-color:white;
-          border-radius: 8px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          direction: lrt;
+          background-color: [#FFF6EB];
         }
 
         .chart-header {
@@ -203,37 +214,36 @@ export default function EnhancedFloorChart() {
           align-items: center;
           margin-bottom: 20px;
           gap: 15px;
-          flex-direction: row-reverse;
         }
 
         .chart-title {
           font-size: 1.25rem;
           font-weight: 600;
-          color: #4F7C6B;
+          color: #8F5100;
           margin-right: 1rem;
         }
 
         .chart-type-select {
           padding: 10px;
           border-radius: 8px;
-          border: 1px solid white;
-          background-color: #A6C9C0;
+          border: 1px solid [#FFF6EB];
+          background-color: #a6c9c0;
           font-family: "Modam";
           font-size: 14px;
-          color:#2F3E3B;
+          color: #2f3e3b;
           cursor: pointer;
           transition: all 0.3s ease;
           min-width: 140px;
         }
 
         .chart-type-select:hover {
-          border-color: #A6C9C0;
-          box-shadow: 0 0 0 1px #2F3E3B;
+          border-color: #a6c9c0;
+          box-shadow: 0 0 0 1px #2f3e3b;
         }
 
         .chart-type-select:focus {
           outline: none;
-          border-color: #2F3E3B;
+          border-color: #2f3e3b;
           box-shadow: 0 0 0 2px rgba(78, 121, 167, 0.3);
         }
 

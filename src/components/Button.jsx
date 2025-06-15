@@ -1,13 +1,13 @@
 export const Button = ({ children, onClick, variant = "default", isActive = false }) => {
-  const base = "px-4 py-0 rounded-xl  text-base font-medium transition h-10";
+  const base = "px-2 py-0 rounded-xl  text-base font-medium transition h-10 hover:text-white";
   const variants = {
-    default: "text-white bg-[#2F3E3B] hover:bg-[#1F2C2A]",
-    outline: "border border-[#2F3E3B] bg-white text-[#2F3E3B] hover:bg-[#4F7C6B]",
+    default: "text-white bg-amber-600 hover:bg-amber-600",
+    outline: "border border-amber-600 bg-white text-amber-600 hover:bg-amber-600 hover:text-white",
   };
 
   // استایل حالت فعال
   const activeStyle = {
-    default: "bg-[#1F2C2A]",
+    default: "bg-[#1F2C2A] hover:text-white",
     outline: "bg-[#4F7C6B] text-white",
   };
 

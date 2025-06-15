@@ -27,7 +27,9 @@ const MapLanduse = () => {
     18: "مذهبی",
     19: "فضای سبز",
     21: "تاسیسات شهری",
+    22:"تجهیزات شهری",
     23: "پارکینگ",
+
     30: "مختلط تجاری-مسکونی",
     26: "میراث تاریخی",
   };
@@ -42,6 +44,7 @@ const MapLanduse = () => {
     مذهبی: "rgb(151,120,120)",
     "فضای سبز": "rgb(0,255,0)", // رنگ پیشنهادی چون در لیست اصلی نبود
     "تاسیسات شهری": "rgb(155,157,0)", // تطبیق با "تجهیزات شهری"
+    "تجهیزات شهری":"rgb(20,250,360)",
     پارکینگ: "rgb(139,0,0)",
     "میراث تاریخی": "rgb(159,140,140)",
     "مختلط تجاری-مسکونی": "rgb(142,63,127)",
@@ -62,7 +65,7 @@ const MapLanduse = () => {
     tileLayerRef.current = tileLayer;
     setMapInstance(map);
 
-    fetch("/data/M15_ExportFeat_FeaturesToJSO.geojson")
+    fetch("./data/m2_FeaturesToJSON.geojson")
       .then((res) => res.json())
       .then((data) => {
         const layer = L.geoJSON(data, {
@@ -168,7 +171,7 @@ const MapLanduse = () => {
 
         .legend {
           font-family: 'Modam';
-          background: white;
+          background: [#FFF6EB];
           padding: 10px;
           border-radius: 5px;
           box-shadow: 0 0 5px #aaa;
@@ -194,7 +197,7 @@ const MapLanduse = () => {
         }
 
         .map-style-control {
-          background: white;
+          background: [#FFF6EB];
           padding: 8px;
           border-radius: 5px;
           box-shadow: 0 0 5px rgba(0,0,0,0.3);

@@ -28,9 +28,9 @@ const COLORS = [
   "#264653",
 ];
 
-export default function GhedmatChartSelector() {
+export default function GhedmatChartSelector({chartType}) {
   const [data, setData] = useState([]);
-  const [chartType, setChartType] = useState("bar");
+  
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function GhedmatChartSelector() {
 
         const chartData = jsonData
           .map((row) => ({
-            name: row["قدمت"]?.toString().trim() || "نامشخص",
+            name: row["نوع"]?.toString().trim() || "نامشخص",
             تعداد: Number(row["تعداد"]) || 0,
           }))
           .filter((item) => !isNaN(item.تعداد));
@@ -114,7 +114,7 @@ export default function GhedmatChartSelector() {
         return (
           <LineChart
             data={data}
-            margin={{ top: 20, right: 40, left: 20, bottom: 70 }}
+            margin={{ top: 20, right: 20, left: 20, bottom: 70 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -138,7 +138,7 @@ export default function GhedmatChartSelector() {
               type="monotone"
               dataKey="تعداد"
               name="تعداد ساختمان‌ها"
-              stroke="#4e79a7"
+              stroke="#8F5100"
               strokeWidth={2}
               dot={{ r: 4 }}
               activeDot={{ r: 6 }}
@@ -182,18 +182,10 @@ export default function GhedmatChartSelector() {
   };
 
   return (
-    <div className="chart-container bg-slate-300  w-full max-w-[1200px]">
+    <div className="chart-containe  w-full ">
       <div className="chart-header ">
-        <select
-          value={chartType}
-          onChange={(e) => setChartType(e.target.value)}
-          className="chart-type-select"
-        >
-          <option value="bar">نمودار میله‌ای</option>
-          <option value="line">نمودار خطی</option>
-          <option value="pie">نمودار دایره‌ای</option>
-        </select>
-        <h2 className="chart-title text-[#3A7CA5]">نمودار قدمت ساختمان‌ها</h2>
+       
+        <h2 className="chart-title text-[#8F5100] mr-40" >نمودار قدمت ساختمان‌ها</h2>
       </div>
 
       {loading ? (
@@ -203,6 +195,52 @@ export default function GhedmatChartSelector() {
           {renderChart()}
         </ResponsiveContainer>
       )}
+      <style jsx>{`
+        .chart-container {
+          font-family: "Modam", Tahoma, sans-serif;
+          direction: rtl;
+          background-color: [#FFF6EB];
+        }
+
+        .chart-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          gap: 15px;
+     
+        }
+
+        .chart-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #8F5100;
+          margin-right: 1rem;
+        }
+
+       
+
+      
+
+        .chart-type-select:focus {
+          outline: none;
+          border-color: #2f3e3b;
+          box-shadow: 0 0 0 2px rgba(78, 121, 167, 0.3);
+        }
+
+        .loading-message,
+        .no-data-message {
+          text-align: center;
+          padding: 40px;
+          color: #666;
+          font-size: 16px;
+        }
+
+        .chart-wrapper {
+          margin-top: 20px;
+          width: 100%;
+        }
+      `}</style>
     </div>
   );
 }

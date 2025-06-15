@@ -71,7 +71,7 @@ const Legend = ({ type }) => {
   };
 
   return (
-    <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg z-[1000] text-sm border border-gray-200 w-56 pointer-events-auto">
+    <div className="absolute bottom-4 right-4 bg-[#FFF6EB]/90 backdrop-blur-md p-4 rounded-xl shadow-lg z-[1000] text-sm border border-gray-200 w-56 pointer-events-auto">
       <div className="font-bold text-center text-gray-800 mb-3">
         راهنمای نقشه
       </div>
@@ -133,7 +133,7 @@ export default function MapStreet() {
   const mapRef = useRef(null);
 
   useEffect(() => {
-    fetch("data/mabaar_5ord_tr_FeaturesToJSO1.geojson")
+    fetch("data/mabaar_5khorda_FeaturesToJSO.geojson")
       .then((res) => res.json())
       .then((data) => {
         setGeoData(data);
@@ -174,14 +174,14 @@ export default function MapStreet() {
           <Button
             onClick={() => setLayerType("traffic")}
             variant={layerType === "traffic" ? "default" : "outline"}
-            className="transition-all ease-in-out hover:bg-blue-500 hover:text-white"
+            className="transition-all ease-in-out hover:bg-blue-500 hover:text-[#FFF6EB]"
           >
             ترافیک
           </Button>
           <Button
             onClick={() => setLayerType("width")}
             variant={layerType === "width" ? "default" : "outline"}
-            className="transition-all ease-in-out hover:bg-blue-500 hover:text-white"
+            className="transition-all ease-in-out hover:bg-blue-500 hover:text-[#FFF6EB]"
           >
             عرض معبر
           </Button>
@@ -191,7 +191,7 @@ export default function MapStreet() {
 
       {/* نقشه */}
       <MapContainer
-        center={[37.4777, 57.3232]}
+        center={[37.469, 57.3433]}
         zoom={17}
         minZoom={17}
         maxZoom={19}

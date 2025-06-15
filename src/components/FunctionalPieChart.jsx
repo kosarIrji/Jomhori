@@ -65,7 +65,7 @@ export default function KarbariExcelPieChart() {
   useEffect(() => {
     const loadExcel = async () => {
       try {
-        const response = await fetch("./data/KARBARI.xlsx");
+        const response = await fetch("./data/Landuse_id_merged.xlsx");
         if (!response.ok) throw new Error("خطا در دریافت فایل");
 
         const blob = await response.blob();
@@ -79,8 +79,8 @@ export default function KarbariExcelPieChart() {
 
         rawData.forEach((row) => {
           const name = String(row["نوع کاربری"]).trim() || "نامشخص";
-          const تعداد = Number(row["فراوانی"]) || 0;
-          const rawArea = row["SUM_Shape_Area"] ?? 0;
+          const تعداد = Number(row["تعداد"]) || 0;
+          const rawArea = row["sum-shape-area"] ?? 0;
           const مساحت = parseFloat(rawArea) || 0;
           const color = `rgb(${row.R}, ${row.G}, ${row.B})`;
 
@@ -161,7 +161,7 @@ export default function KarbariExcelPieChart() {
         <div style={chartContainerStyle}>
           <h3 style={{
             marginBottom: "1rem",
-            color: "#3A7CA5",
+            color: "#8F5100",
             fontSize: "1rem",
             fontWeight: "bold"
           }}>

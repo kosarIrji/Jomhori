@@ -13,7 +13,7 @@ import {
 // جایگزین موقتی Card و CardContent
 const Card = ({ children, className }) => (
   <div
-    className={`bg-white rounded-2xl shadow-md p-4 border border-gray-200 ${className}`}
+    className={`bg-[#FFF6EB] rounded-2xl shadow-md p-4 border border-gray-200 ${className}`}
   >
     {children}
   </div>
@@ -31,13 +31,14 @@ const COLORS = [
   "#0096C7",
   "#0077B6",
   "#023E8A",
+ 
 ];
 
 const AccsessesArzeMabar = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("./data/arz_mabar.xlsx")
+    fetch("./data/arz_mabaar.xlsx")
       .then((res) => res.arrayBuffer())
       .then((buffer) => {
         const workbook = XLSX.read(buffer, { type: "array" });
@@ -62,13 +63,13 @@ const AccsessesArzeMabar = () => {
   }, []);
 
   return (
-    <div className="text-lg">
+    <div className="text-lg h-full">
       <Card>
         <CardContent>
-          <h2 className="text-base font-bold text-[#4F7C6B] mb-4 text-center">
+          <h2 className="text-base font-bold text-[#8F5100] mb-4 text-center">
             نمودار تعداد بر اساس عرض معبر
           </h2>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={300} >
             <BarChart data={data}>
               <XAxis
                 dataKey="arz"

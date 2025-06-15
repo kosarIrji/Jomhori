@@ -54,8 +54,8 @@ const QualityOfLifeChart = ({ dataValues, names }) => {
   };
 
   return (
-    <div className="w-full  mx-auto bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center">
-      <h2 className="text-xl md:text-2xl font-extrabold text-[#4F7C6B] text-center mb-6">
+    <div className="w-full h-full  mx-auto bg-[#FFF6EB] rounded-2xl shadow-xl p-8 flex flex-col items-center">
+      <h2 className="text-xl md:text-2xl font-extrabold text-[#8F5100] text-center mb-6">
         مقایسه کیفیت زندگی در محله‌ها
       </h2>
       <ResponsiveContainer width="100%" height={500}>
