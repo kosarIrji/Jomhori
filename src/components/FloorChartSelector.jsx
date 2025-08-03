@@ -26,9 +26,9 @@ const COLORS = [
   "#b07aa1",
 ];
 
-export default function EnhancedFloorChart({chartType}) {
+export default function EnhancedFloorChart({ chartType }) {
   const [data, setData] = useState([]);
- 
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function EnhancedFloorChart({chartType}) {
 
         const chartData = jsonData
           .map((row) => ({
-            name: String(row["نوع"] ?? "نامشخص"),
+            name: String(row["طبقه"] ?? "نامشخص"),
             تعداد: Number(row["تعداد"] ?? 0),
           }))
           .filter((item) => !isNaN(item.تعداد));
@@ -72,10 +72,7 @@ export default function EnhancedFloorChart({chartType}) {
     switch (chartType) {
       case "bar":
         return (
-          <BarChart
-            data={data}
-            margin={{ top: 20, bottom: 70 }}
-          >
+          <BarChart data={data} margin={{ top: 10, bottom: 10 ,left:30,right:30 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
@@ -84,7 +81,7 @@ export default function EnhancedFloorChart({chartType}) {
               interval={0}
               height={60}
             />
-            <YAxis />
+            <YAxis  width={10}  tick={{ textAnchor: "satrt", fontSize: 13 }} />
             <Tooltip
               contentStyle={{
                 fontFamily: "Modam",
@@ -93,7 +90,7 @@ export default function EnhancedFloorChart({chartType}) {
               }}
               formatter={(value) => [`${value} واحد`, "تعداد"]}
             />
-            <Legend wrapperStyle={{ direction: "rtl" , padding: "20px"}} />
+            <Legend layout="horizontal" verticalAlign="bottom"  />
             <Bar
               dataKey="تعداد"
               name="تعداد واحدها"
@@ -111,19 +108,16 @@ export default function EnhancedFloorChart({chartType}) {
         );
       case "line":
         return (
-          <LineChart
-            data={data}
-            margin={{ top: 20,  bottom: 70 }}
-          >
+          <LineChart data={data} margin={{ top: 10, bottom: 10, left: 20,right:20, }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
               angle={-45}
               textAnchor="start"
               interval={0}
-              height={60}
+              height={80}
             />
-            <YAxis />
+            <YAxis width={10} tick={{ textAnchor: "satrt", fontSize: 13 }} />
             <Tooltip
               contentStyle={{
                 fontFamily: "Modam",
@@ -132,12 +126,12 @@ export default function EnhancedFloorChart({chartType}) {
               }}
               formatter={(value) => [`${value} واحد`, "تعداد"]}
             />
-            <Legend wrapperStyle={{ direction: "rtl" }} />
+            <Legend wrapperStyle={{ direction: "rtl" ,paddingTop:"10px"}} />
             <Line
               type="monotone"
               dataKey="تعداد"
               name="تعداد واحدها"
-              stroke="#4e79a7"
+              stroke="var(--text)"
               strokeWidth={2}
               dot={{ r: 4 }}
               activeDot={{ r: 6 }}
@@ -187,79 +181,20 @@ export default function EnhancedFloorChart({chartType}) {
   return (
     <div className="chart-container w-full">
       <div className="chart-header ">
-       
-        <h2 className="chart-title">نمودار اطلاعات طبقات</h2>
+        <h2 className="text-lg font-bold text-[var(--text)] mb-5 mt-5 text-center">نمودار اطلاعات طبقات</h2>
       </div>
 
       {loading ? (
         <div className="loading-message">در حال بارگذاری داده‌ها...</div>
       ) : (
         <div className="chart-wrapper">
-          <ResponsiveContainer width="100%" height={500}>
+          <ResponsiveContainer width="100%" height={350}>
             {renderChart()}
           </ResponsiveContainer>
         </div>
       )}
 
-      <style jsx>{`
-        .chart-container {
-          font-family: "Modam", Tahoma, sans-serif;
-          direction: lrt;
-          background-color: [#FFF6EB];
-        }
-
-        .chart-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-          gap: 15px;
-        }
-
-        .chart-title {
-          font-size: 1.25rem;
-          font-weight: 600;
-          color: #8F5100;
-          margin-right: 1rem;
-        }
-
-        .chart-type-select {
-          padding: 10px;
-          border-radius: 8px;
-          border: 1px solid [#FFF6EB];
-          background-color: #a6c9c0;
-          font-family: "Modam";
-          font-size: 14px;
-          color: #2f3e3b;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          min-width: 140px;
-        }
-
-        .chart-type-select:hover {
-          border-color: #a6c9c0;
-          box-shadow: 0 0 0 1px #2f3e3b;
-        }
-
-        .chart-type-select:focus {
-          outline: none;
-          border-color: #2f3e3b;
-          box-shadow: 0 0 0 2px rgba(78, 121, 167, 0.3);
-        }
-
-        .loading-message,
-        .no-data-message {
-          text-align: center;
-          padding: 40px;
-          color: #666;
-          font-size: 16px;
-        }
-
-        .chart-wrapper {
-          margin-top: 20px;
-          width: 100%;
-        }
-      `}</style>
+      
     </div>
   );
 }

@@ -36,7 +36,7 @@ export default function GhedmatChartSelector({chartType}) {
   useEffect(() => {
     const loadExcel = async () => {
       try {
-        const response = await fetch("./data/QEDMAT.xlsx"); // مسیر فایل قدمت
+        const response = await fetch("./data/qdmt.xlsx"); // مسیر فایل قدمت
         if (!response.ok) throw new Error("خطا در دریافت فایل");
 
         const blob = await response.blob();
@@ -48,7 +48,7 @@ export default function GhedmatChartSelector({chartType}) {
 
         const chartData = jsonData
           .map((row) => ({
-            name: row["نوع"]?.toString().trim() || "نامشخص",
+            name: row["قدمت"]?.toString().trim() || "نامشخص",
             تعداد: Number(row["تعداد"]) || 0,
           }))
           .filter((item) => !isNaN(item.تعداد));
@@ -75,7 +75,7 @@ export default function GhedmatChartSelector({chartType}) {
         return (
           <BarChart
             data={data}
-            margin={{ top: 20, right: 40, left: 20, bottom: 70 }}
+            margin={{ top: 10, right: 30, left: 30, bottom: 10 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -94,7 +94,7 @@ export default function GhedmatChartSelector({chartType}) {
               }}
               formatter={(value) => [`${value} واحد`, "تعداد"]}
             />
-            <Legend wrapperStyle={{ direction: "rtl", padding: "20px" }} />
+            <Legend wrapperStyle={{ direction: "rtl",paddingTop:"10px" }} />
             <Bar
               dataKey="تعداد"
               name="تعداد ساختمان‌ها"
@@ -114,7 +114,7 @@ export default function GhedmatChartSelector({chartType}) {
         return (
           <LineChart
             data={data}
-            margin={{ top: 20, right: 20, left: 20, bottom: 70 }}
+            margin={{  top: 10, bottom: 10 ,left:20,right:20,}}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -122,7 +122,7 @@ export default function GhedmatChartSelector({chartType}) {
               angle={-45}
               textAnchor="start"
               interval={0}
-              height={60}
+              height={80}
             />
             <YAxis width={10} tick={{ textAnchor: "satrt", fontSize: 13 }} />
             <Tooltip
@@ -138,7 +138,7 @@ export default function GhedmatChartSelector({chartType}) {
               type="monotone"
               dataKey="تعداد"
               name="تعداد ساختمان‌ها"
-              stroke="#8F5100"
+              stroke="var(--text)"
               strokeWidth={2}
               dot={{ r: 4 }}
               activeDot={{ r: 6 }}
@@ -185,62 +185,18 @@ export default function GhedmatChartSelector({chartType}) {
     <div className="chart-containe  w-full ">
       <div className="chart-header ">
        
-        <h2 className="chart-title text-[#8F5100] mr-40" >نمودار قدمت ساختمان‌ها</h2>
+        <h2 className="text-lg font-bold text-[var(--text)] mb-5 mt-5 text-center" >نمودار قدمت ساختمان‌ها</h2>
       </div>
 
       {loading ? (
         <div className="loading-message">در حال بارگذاری داده‌ها...</div>
       ) : (
-        <ResponsiveContainer width="100%" height={500}>
+        <ResponsiveContainer width="100%" height={350}>
           {renderChart()}
         </ResponsiveContainer>
       )}
-      <style jsx>{`
-        .chart-container {
-          font-family: "Modam", Tahoma, sans-serif;
-          direction: rtl;
-          background-color: [#FFF6EB];
-        }
-
-        .chart-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-          gap: 15px;
-     
-        }
-
-        .chart-title {
-          font-size: 1.25rem;
-          font-weight: 600;
-          color: #8F5100;
-          margin-right: 1rem;
-        }
-
-       
-
       
-
-        .chart-type-select:focus {
-          outline: none;
-          border-color: #2f3e3b;
-          box-shadow: 0 0 0 2px rgba(78, 121, 167, 0.3);
-        }
-
-        .loading-message,
-        .no-data-message {
-          text-align: center;
-          padding: 40px;
-          color: #666;
-          font-size: 16px;
-        }
-
-        .chart-wrapper {
-          margin-top: 20px;
-          width: 100%;
-        }
-      `}</style>
+      
     </div>
   );
 }

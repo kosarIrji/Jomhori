@@ -8,16 +8,34 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  Legend,
 } from "recharts";
 
 // جایگزین موقتی Card و CardContent
 const Card = ({ children, className }) => (
   <div
-    className={`bg-[#FFF6EB] rounded-2xl shadow-md p-4 border border-gray-200 ${className}`}
+    className={`  h-full w-full  ${className}`}
   >
     {children}
   </div>
 );
+
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    const arz = label;
+    const tedad = payload[0].value;
+
+    return (
+      <div className="bg-white/80 backdrop-blur-md p-2 rounded shadow text-base font-[Modam]">
+        <p>عرض معبر: {arz}</p>
+        <p>تعداد: {tedad}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 const CardContent = ({ children }) => (
   <div className="space-y-3">{children}</div>
@@ -31,14 +49,13 @@ const COLORS = [
   "#0096C7",
   "#0077B6",
   "#023E8A",
- 
 ];
 
 const AccsessesArzeMabar = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("./data/arz_mabaar.xlsx")
+    fetch("./data/arz_mabar.xlsx")
       .then((res) => res.arrayBuffer())
       .then((buffer) => {
         const workbook = XLSX.read(buffer, { type: "array" });
@@ -63,27 +80,31 @@ const AccsessesArzeMabar = () => {
   }, []);
 
   return (
-    <div className="text-lg h-full">
+    <div className="text-lg h-full ">
       <Card>
         <CardContent>
-          <h2 className="text-base font-bold text-[#8F5100] mb-4 text-center">
+          <h2 className="text-base font-bold  text-[var(--text)] mb-5 mt-5 text-center">
             نمودار تعداد بر اساس عرض معبر
           </h2>
-          <ResponsiveContainer width="100%" height={300} >
+          <ResponsiveContainer width="100%" height={230}>
             <BarChart data={data}>
               <XAxis
                 dataKey="arz"
+                textAnchor="start"
+                interval={0}
+                height={10}
+                
                 label={{
-                  value: "عرض معبر",
                   position: "insideBottom",
                   offset: -1,
                   style: {
                     textAnchor: "start",
                     fontFamily: "Modam",
                     fontSize: 15,
+                    
                   },
                 }}
-                tick={{ fontSize: 12, fontFamily: "Modam" }}
+                tick={{ fontSize: 13, fontFamily: "Modam" }}
               />
               <YAxis
                 label={{
@@ -96,13 +117,24 @@ const AccsessesArzeMabar = () => {
                     fontSize: 15,
                   },
                 }}
-                tick={{ fontSize: 14, fontFamily: "Modam" }}
+                tick={{
+                  textAnchor: "satrt",
+                  fontSize: 14,
+                  fontFamily: "Modam",
+                }}
               />
-              <Tooltip wrapperStyle={{ fontFamily: "Modam" }} />
+              <Tooltip wrapperStyle={{ fontFamily: "Modam" }} content={<CustomTooltip />}/>
+              <Legend
+                content={() => (
+                  <div className="w-full text-center h-full">
+                    <span className="text-base ">عرض معبر</span>
+                  </div>
+                )}
+              />
               <Bar dataKey="tedad" name="تعداد">
                 {data.map((entry, index) => (
                   <Cell
-                    key={`cell-${index}`}
+                    key={`cell-${index} `}
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}

@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import { ShieldCheck, WarningOctagon, TrendUp, Skull } from "phosphor-react";
+import Details from "../components/config/details.json";
 
 // ستون‌ها با آیکون حرفه‌ای
 const columnTitles = [
@@ -14,18 +15,18 @@ const columnTitles = [
     icon: ShieldCheck,
   },
   {
-    key: "weaknesses",
-    label: "نقاط ضعف",
-    bg: "bg-red-600",
-    text: "text-white",
-    icon: WarningOctagon,
-  },
-  {
     key: "opportunities",
     label: "فرصت‌ها",
     bg: "bg-blue-600",
     text: "text-white",
     icon: TrendUp,
+  },
+  {
+    key: "weaknesses",
+    label: "نقاط ضعف",
+    bg: "bg-red-600",
+    text: "text-white",
+    icon: WarningOctagon,
   },
   {
     key: "threats",
@@ -35,33 +36,7 @@ const columnTitles = [
     icon: Skull,
   },
 ];
-const rows = [
-  {
-    strengths: "دسترسی مناسب به خیابان های اصلی",
-    weaknesses: "معابر فرعی باریک و بن بست ها",
-    opportunities: "ظرفیت بالای نوسازی بافت های قدیمی و افزایش ارزش ملک",
-    threats: "فرسایش کالبدی در صورت بی توجهی به نوسازی",
-  },
-  {
-    strengths: "وجود فضای سبز مناسب در مقیاس محله ",
-    weaknesses: " شلوغی در ساعات تعطیلی مدارس",
-    opportunities: "رشد ساخت و ساز در دهه های اخیر",
-    threats: "",
-  },
-  {
-    strengths: "دسترسی به خدمات شهری",
-    weaknesses: "                                ",
-    opportunities: "امکان توسعه کاربری های فرهنگی و اجتماعی در محله ",
-    threats: "",
-  },
-  {
-    strengths: "امنیت بالا و روابط اجتماعی مطلوب میان ساکنین",
-    weaknesses: "",
-    opportunities: "  ",
-    threats: "",
-  },
-];
-
+const rows=Details.prosAndCons;
 const cellColors = {
   strengths: "bg-green-100 border-green-200",
   weaknesses: "bg-red-100 border-red-200",
@@ -72,7 +47,7 @@ const cellColors = {
 const TableSection = ({ columns, colCount }) => (
   <div className="overflow-auto text-base sm:text-xs md:text-base w-full">
     <div
-      className={`grid ${colCount === 4 ? "grid-cols-4" : "grid-cols-2"} gap-4 p-3 font-modam text-center border-b`}
+      className={`grid ${colCount === 4 ? "grid-cols-4" : "grid-cols-2"} gap-2  font-modam text-center border-b`}
     >
       {columns.map(({ key, label, bg, text, icon: Icon }) => (
         <div
@@ -88,7 +63,7 @@ const TableSection = ({ columns, colCount }) => (
     {rows.map((row, index) => (
       <motion.div
         key={index}
-        className={`grid ${colCount === 4 ? "grid-cols-4" : "grid-cols-2"} gap-4 border-b py-3 px-2 w-full`}
+        className={`grid ${colCount === 4 ? "grid-cols-4" : "grid-cols-2"} gap-2 py-1 px-1 w-full`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1, duration: 0.4 }}
@@ -109,8 +84,8 @@ const TableSection = ({ columns, colCount }) => (
 // خروجی اصلی
 export default function SWOTSummary() {
   return (
-    <div className="space-y-4 w-full h-full p-6">
-      <h2 className="w-full font-bold text-[#8F5100] text-center">
+    <div className="space-y-4 w-full h-full p-3">
+      <h2 className="text-xl md:text-2xl font-extrabold text-[var(--text)] text-center">
         جدول خلاصه تحلیل SWOT
       </h2>
 
